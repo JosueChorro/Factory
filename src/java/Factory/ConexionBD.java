@@ -46,7 +46,7 @@ public abstract class ConexionBD {
         return guardar;
     }
     
-    public boolean cerrarConexion(String consulta){
+    public boolean cerrarConexion(){
         boolean ok = true;
         
         try{
