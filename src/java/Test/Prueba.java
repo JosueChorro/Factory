@@ -17,8 +17,14 @@ import java.util.List;
 public class Prueba {
     public static void main(String[] args) {
         Prueba eva = new Prueba();
-        eva.guardarcate();
         eva.listar();
+        eva.eliminar();
+        eva.listar();
+    }
+    
+    public void eliminar(){
+        CategoriaDAO dao = new CategoriaDAOImplementar();
+        dao.borrarCat(5);
     }
     
     public void listar(){
