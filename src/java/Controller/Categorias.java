@@ -7,10 +7,12 @@ package Controller;
 
 import DAO.CategoriaDAO;
 import DAO.CategoriaDAOImplementar;
+import Model.Categoria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author JCH
  */
+@WebServlet(name = "Categorias", urlPatterns = {"/Categorias"})
 public class Categorias extends HttpServlet {
 
     /**
@@ -48,6 +51,14 @@ public class Categorias extends HttpServlet {
         }
     }
 
+     protected void listaCategorias(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        CategoriaDAO categoria = new CategoriaDAOImplementar();
+        HttpSession session = request.getSession(true);
+        session.setAttribute("lista", categoria.Listar());
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Vistas-Categorias/listarCategorias.jsp");
+        dispatcher.forward(request, response);
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -60,18 +71,18 @@ public class Categorias extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.listarCategorias(request, response);
+        String para = request.getParameter("opcion");
+        if (para.equals("crear")) {
+            String pag = "/Vistas-Categorias/crearCategoria.jsp";
+            RequestDispatcher dis = getServletContext().getRequestDispatcher(pag);
+            dis.forward(request, response);
+            
+        }else{
+            this.listaCategorias(request, response);
+        }
     }
     
-    protected void listarCategorias(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/htm;charset=UTF-8");
-        CategoriaDAO dao = new CategoriaDAOImplementar();
-        HttpSession sesion = request.getSession(true);
-        sesion.setAttribute("lista", dao.Listar());
-        RequestDispatcher dis = getServletContext().getRequestDispatcher("/Vistas-Categorias/listarCategorias.jsp");
-        dis.forward(request, response);
-    }
+   
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -84,7 +95,13 @@ public class Categorias extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Categoria cate = new Categoria();
+        cate.setId_categoria(Integer.parseInt(request.getParameter("id_categoria")));
+        cate.setNom_categoria(request.getParameter("txtNomCategoria"));
+        cate.setId_categoria(Integer.parseInt(request.getParameter("txtEstadoCategoria")));
+        CategoriaDAO dao = new CategoriaDAOImplementar();
+        dao.guardarCat(cate);
+        this.listaCategorias(request, response);
     }
 
     /**

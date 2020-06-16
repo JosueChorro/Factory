@@ -3,8 +3,8 @@
 <div>
     <div class="encabezado">
         Sistema de control de Inventario
-        <a href="index" class="btn btn-primary" role="button">Inicio</a>
-        <a href="categorias" class="btn btn-primary" role="button">Categorias</a>
+        <a href="Index" class="btn btn-primary">Inicio</a>
+        <a href="Categorias" class="btn btn-primary">Categorias</a>
         <!--<nav class="navbar">
             <a class="navbar-brand">Sistema de control de Inventario</a>
             <ul class="navbar-nav">

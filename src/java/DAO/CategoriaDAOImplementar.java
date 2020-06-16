@@ -9,6 +9,7 @@ import Factory.ConexionBD;
 import Factory.FactoryConexionBD;
 import Model.Categoria;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +41,8 @@ public class CategoriaDAOImplementar implements CategoriaDAO {
                 
                 lista.add(categoria);
             }
-        }catch(Exception ex){
-            
+        }catch (SQLException ex) {
+            ex.printStackTrace();
         }finally{
             this.conn.cerrarConexion();
         }
