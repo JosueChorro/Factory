@@ -71,13 +71,13 @@ public class Categorias extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String para = request.getParameter("opcion");
-        if (para.equals("crear")) {
-            String pag = "/Vistas-Categorias/crearCategoria.jsp";
-            RequestDispatcher dis = getServletContext().getRequestDispatcher(pag);
-            dis.forward(request, response);
-            
-        }else{
+        String opcion = request.getParameter("opcion");
+        System.out.println("opcion " + opcion);
+        if(opcion.equalsIgnoreCase("crear")){
+            String direcion = "/Vistas-Categorias/crearCategoria.jsp";
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(direcion);
+            dispatcher.forward(request, response);
+        }else if(opcion.equalsIgnoreCase("listar")){
             this.listaCategorias(request, response);
         }
     }
@@ -96,10 +96,15 @@ public class Categorias extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Categoria cate = new Categoria();
-        cate.setId_categoria(Integer.parseInt(request.getParameter("id_categoria")));
-        cate.setNom_categoria(request.getParameter("txtNomCategoria"));
-        cate.setId_categoria(Integer.parseInt(request.getParameter("txtEstadoCategoria")));
         CategoriaDAO dao = new CategoriaDAOImplementar();
+        
+        int id = 0;
+        String nom = request.getParameter("txtNomCategoria");
+        int est = Integer.parseInt(request.getParameter("txtEstadoCategoria"));
+        cate.setId_categoria(id);
+        cate.setNom_categoria(nom);
+        cate.setEstado_categoria(est);
+        
         dao.guardarCat(cate);
         this.listaCategorias(request, response);
     }

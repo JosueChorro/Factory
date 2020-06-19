@@ -12,28 +12,29 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <%@include file = "../WEB-INF/css-js.jspf"%>
-        <script type="text/javscript">
+        <script type="text/javascript">
             function regresar(url){
-                location.href= null;
+                location.href= url;
             }
-        </script>
+        </script>       
     </head>
     <body>
-        <%@include file = "../WEB-INF/encabezado.jspf"%>
-        <h1>Mantenimiento Categorias</h1>
-        <form name="frmCategoria" id ="frmCategoria" action="<%= request.getContextPath() %>/Categorias" method="POST">
-            <input type="hidden" name="id_categoria" value="<%= categoria.getId_categoria() %>" />
-            <div>
-                <label for="txtNomCategoria">Nombre: </label>
-                <input type="text" name="txtNomCategoria" value="<%= categoria.getNom_categoria() %>">
+        <%@include file = "../WEB-INF/encabezado.jspf"%><br><br>
+        <h1 class="text-center">Mantenimiento Categorias</h1>
+        <br><br>
+        <form name="frmCategoria" id ="frmCategoria" action="<%= request.getContextPath() %>/Categorias" method="POST" class="form-horizontal">
+            <input type="hidden" name="id_categoria" value=0 />
+            <div class="form-group">
+                <label for="txtNomCategoria" class="control-label">Nombre: </label>
+                <input type="text" name="txtNomCategoria" class="form-control" value="<%= categoria.getNom_categoria() %>">
             </div>
-            <div>
-                <label for="txtEstadoCategoria">Estado: </label>
-                <input type="text" name="txtEstadoCategoria" value="<%= categoria.getEstado_categoria() %>">
-            </div>
-            <div>
-                <input type="submit" name="btnGuardar" value="Guardar">
-                <input type="button" onclick="regresar('<%= request.getContextPath() %>/Categorias')" name="btnRegresar" value="Regresar">
+            <div class="form-group">
+                <label for="txtEstadoCategoria" class="control-label">Estado: </label>
+                <input type="text" name="txtEstadoCategoria" value=1  class="form-control">
+            </div><br>
+            <div class="form-group">
+                <input type="submit" name="btnGuardar" value="Guardar" class="btn btn-outline-primary">
+                <input type="button" onclick="regresar('<%= request.getContextPath() %>/Categorias?opcion=listar')" name="btnRegresar" value="Regresar" class="btn btn-danger">
             </div>
         </form>
         

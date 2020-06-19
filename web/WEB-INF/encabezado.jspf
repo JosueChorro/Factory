@@ -4,7 +4,7 @@
     <div class="encabezado">
         Sistema de control de Inventario
         <a href="Index" class="btn btn-primary">Inicio</a>
-        <a href="Categorias" class="btn btn-primary">Categorias</a>
+        <a href="Categorias?opcion=listar" class="btn btn-primary">Categorias</a>
         <!--<nav class="navbar">
             <a class="navbar-brand">Sistema de control de Inventario</a>
             <ul class="navbar-nav">

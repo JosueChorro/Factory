@@ -83,18 +83,20 @@ public class CategoriaDAOImplementar implements CategoriaDAO {
         this.conn = FactoryConexionBD.open(FactoryConexionBD.MySQL);
         boolean guardar = false;
         try{
-            if (categoria.getId_categoria() == 0) {
-                StringBuilder miSQL = new StringBuilder();
-                miSQL.append("INSERT INTO tb_categoria(nom_categoria, estado_categoria) VALUES ('");
-                miSQL.append(categoria.getNom_categoria() + "', ").append(categoria.getEstado_categoria());
-                miSQL.append(");");
-                this.conn.ejecutarSQL(miSQL.toString());
-            }else if(categoria.getId_categoria() > 0){
-                StringBuilder miSQL = new StringBuilder();
-                miSQL.append("UPDATE tb_categoria SET nom_categoria = '").append(categoria.getNom_categoria());
-                miSQL.append("', estado_categoria = ").append(categoria.getEstado_categoria());
-                miSQL.append(" WHERE id_categoria = ").append(categoria.getId_categoria()).append(";");
-                this.conn.ejecutarSQL(miSQL.toString());
+            if (categoria.getId_categoria() == 0) { // Significa que no existe
+                StringBuilder myQuery = new StringBuilder();
+                myQuery.append("INSERT INTO tb_categoria (nom_categoria,estado_categoria) VALUES('");
+                myQuery.append(categoria.getNom_categoria()).append("', '");
+                myQuery.append(categoria.getEstado_categoria()).append("');");
+                // Invocar metodo para ejecutar la consulta
+                this.conn.ejecutarSQL(myQuery.toString());
+            }else if(categoria.getId_categoria() > 0){ // significa que existe
+                // Actualizar: id_categorias mayores a cero
+                StringBuilder mySQL = new StringBuilder();
+                mySQL.append("UPDATE tb_categoria SET nom_categoria = '").append(categoria.getNom_categoria());
+                mySQL.append("', estado_categoria = '").append(categoria.getEstado_categoria()).append("'");
+                mySQL.append("WHERE id_categoria = ").append(categoria.getId_categoria()).append(" ;");
+                this.conn.ejecutarSQL(mySQL.toString());
             }
             guardar = true;
         }catch(Exception ex){
