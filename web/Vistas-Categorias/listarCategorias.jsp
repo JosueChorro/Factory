@@ -16,7 +16,10 @@
     <body>
         <%@include file = "../WEB-INF/encabezado.jspf"%>
         <h1>Listado de categorias</h1><br>
-        <a href="<%= request.getContextPath() %>/Categorias?opcion=crear" class="btn btn-success">Agregar nueva</a><br><br>
+        <a href="<%= request.getContextPath() %>/Categorias?opcion=crear" class="btn btn-success">Agregar nueva</a>
+        <a class="btn btn-outline-dark float-right" href="pdf">PDF</a>
+        
+        <br><br>
         <table class="table table-hover">
             <tr class="" style="background: black; color: white;">
                 <th>ID</th>
